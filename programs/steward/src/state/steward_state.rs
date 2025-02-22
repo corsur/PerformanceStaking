@@ -735,10 +735,11 @@ impl StewardState {
                 return Err(StewardError::InvalidState.into());
             }
 
+            let num_delegation_validators = ((self.sorted_score_indices.len() as f64) * 0.1).ceil() as usize;
             let validators_to_delegate = select_validators_to_delegate(
                 &self.scores[..self.num_pool_validators as usize],
                 &self.sorted_score_indices[..self.num_pool_validators as usize],
-                config.parameters.num_delegation_validators as usize,
+                num_delegation_validators,
             );
 
             let num_delegation_validators = validators_to_delegate.len();

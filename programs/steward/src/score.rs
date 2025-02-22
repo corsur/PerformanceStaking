@@ -72,8 +72,8 @@ pub struct ScoreDetails {
     /// Epoch when delinquency was detected
     pub delinquency_epoch: u16,
 
-    /// Max commission observed
-    pub max_commission: u8,
+    /// Avg commission observed
+    pub avg_commission: u8,
 
     /// Epoch of max commission
     pub max_commission_epoch: u16,
@@ -141,7 +141,7 @@ pub fn validator_score(
             params.scoring_delinquency_threshold_ratio,
         )?;
 
-    let (commission_score, max_commission, max_commission_epoch) = calculate_commission(
+    let (commission_score, avg_commission, max_commission_epoch) = calculate_commission(
         &commission_window,
         current_epoch,
         params.commission_threshold,
@@ -160,8 +160,7 @@ pub fn validator_score(
     let blacklisted_score = calculate_blacklist(config, validator.index)?;
 
     /////// Formula ///////
-
-    let yield_score = vote_credits_ratio * (1. - max_commission as f64 / COMMISSION_MAX as f64);
+    let yield_score = vote_credits_ratio * (1. - avg_commission as f64 / COMMISSION_MAX as f64);
 
     let score = mev_commission_score
         * commission_score
@@ -191,7 +190,7 @@ pub fn validator_score(
             superminority_epoch,
             delinquency_ratio,
             delinquency_epoch,
-            max_commission,
+            avg_commission,
             max_commission_epoch,
             max_historical_commission,
             max_historical_commission_epoch,
@@ -256,10 +255,6 @@ pub fn calculate_epoch_credits(
         return Err(StewardError::ArithmeticError.into());
     }
 
-    // Get average of total blocks in window, ignoring values where upload was missed
-    let average_blocks =
-        total_blocks_window.iter().filter_map(|&i| i).sum::<u32>() as f64 / nonzero_blocks as f64;
-
     // Delinquency heuristic - not actual delinquency
     let mut delinquency_score = 1.0;
     let mut delinquency_ratio = 1.0;
@@ -286,23 +281,30 @@ pub fn calculate_epoch_credits(
         }
     }
 
-    let normalized_vote_credits_ratio =
-        average_vote_credits / (average_blocks * (TVC_MULTIPLIER as f64));
-
     Ok((
-        normalized_vote_credits_ratio,
+        average_vote_credits,
         delinquency_score,
         delinquency_ratio,
         delinquency_epoch,
     ))
 }
 
-/// Finds max commission in the last `commission_range` epochs
+/// Finds average commission in the last `commission_range` epochs
 pub fn calculate_commission(
     commission_window: &[Option<u8>],
     current_epoch: u16,
     commission_threshold: u8,
 ) -> Result<(f64, u8, u16)> {
+
+    //////// Average Commission ///////
+    let (total_commission, count) = commission_window
+        .iter()
+        .rev()
+        .filter_map(|&commission| commission)
+        .fold((0, 0), |(sum, count), commission| (sum + commission, count + 1));
+
+    let average_commission = if count > 0 { total_commission / count } else { 0 };
+
     /////// Commission ///////
     let (max_commission, max_commission_epoch) = commission_window
         .iter()
@@ -320,7 +322,7 @@ pub fn calculate_commission(
         0.0
     };
 
-    Ok((commission_score, max_commission, max_commission_epoch))
+    Ok((commission_score, average_commission, max_commission_epoch))
 }
 
 /// Checks if validator has commission above a threshold in any epoch in their history
