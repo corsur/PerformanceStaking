@@ -729,7 +729,7 @@ impl StewardState {
     /// to each validator, represented as a fraction of total stake
     ///
     /// Mutates: delegations, compute_delegations_completed
-    pub fn compute_delegations(&mut self, current_epoch: u64, config: &Config) -> Result<()> {
+    pub fn compute_delegations(&mut self, current_epoch: u64, _config: &Config) -> Result<()> {
         if matches!(self.state_tag, StewardStateEnum::ComputeDelegations) {
             if current_epoch >= self.next_cycle_epoch {
                 return Err(StewardError::InvalidState.into());
@@ -737,8 +737,8 @@ impl StewardState {
 
             let num_delegation_validators = ((self.sorted_score_indices.len() as f64) * 0.1).ceil() as usize;
             let validators_to_delegate = select_validators_to_delegate(
-                &self.scores[..self.num_pool_validators as usize],
-                &self.sorted_score_indices[..self.num_pool_validators as usize],
+                &self.yield_scores[..self.num_pool_validators as usize],
+                &self.sorted_yield_score_indices[..self.num_pool_validators as usize],
                 num_delegation_validators,
             );
 
