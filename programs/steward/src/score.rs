@@ -102,8 +102,10 @@ pub fn validator_score(
         current_epoch,
     );
 
+    yield_range = 5;
+
     let epoch_credits_start = current_epoch
-        .checked_sub(params.epoch_credits_range)
+        .checked_sub(yield_range)
         .ok_or(ArithmeticError)?;
     // Epoch credits should not include current epoch because it is in progress and data would be incomplete
     let epoch_credits_end = current_epoch.checked_sub(1).ok_or(ArithmeticError)?;
@@ -120,7 +122,7 @@ pub fn validator_score(
 
     let commission_window = validator.history.commission_range(
         current_epoch
-            .checked_sub(params.commission_range)
+            .checked_sub(yield_range)
             .ok_or(ArithmeticError)?,
         current_epoch,
     );
