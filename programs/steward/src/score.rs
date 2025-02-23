@@ -102,10 +102,8 @@ pub fn validator_score(
         current_epoch,
     );
 
-    yield_range = 5;
-
     let epoch_credits_start = current_epoch
-        .checked_sub(yield_range)
+        .checked_sub(5)
         .ok_or(ArithmeticError)?;
     // Epoch credits should not include current epoch because it is in progress and data would be incomplete
     let epoch_credits_end = current_epoch.checked_sub(1).ok_or(ArithmeticError)?;
@@ -122,7 +120,7 @@ pub fn validator_score(
 
     let commission_window = validator.history.commission_range(
         current_epoch
-            .checked_sub(yield_range)
+            .checked_sub(5)
             .ok_or(ArithmeticError)?,
         current_epoch,
     );
@@ -303,8 +301,8 @@ pub fn calculate_commission(
         .iter()
         .rev()
         .filter_map(|&commission| commission)
-        .fold((0, 0), |(sum, count), commission| (sum + commission, count + 1));
-
+        .fold((0_u64, 0), |(sum, count), commission| (sum + commission as u64, count + 1));
+    
     let average_commission = if count > 0 { total_commission / count } else { 0 };
 
     /////// Commission ///////
@@ -324,7 +322,7 @@ pub fn calculate_commission(
         0.0
     };
 
-    Ok((commission_score, average_commission, max_commission_epoch))
+    Ok((commission_score, average_commission.try_into().unwrap(), max_commission_epoch))
 }
 
 /// Checks if validator has commission above a threshold in any epoch in their history

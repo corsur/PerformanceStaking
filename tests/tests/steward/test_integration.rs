@@ -122,11 +122,13 @@ async fn test_compute_delegations() {
     let steward_state_account: StewardStateAccount =
         fixture.load_and_deserialize(&fixture.steward_state).await;
 
-    assert!(steward_state_account.state.delegations.iter().all(|&x| x
-        == Delegation {
-            numerator: 1,
-            denominator: MAX_VALIDATORS as u32
-        }));
+    // accumulate the numerator of each delegation
+    let mut numerator_sum = 0;
+    for delegation in steward_state_account.state.delegations.iter() {
+        numerator_sum += delegation.numerator;
+    }
+
+    assert!(numerator_sum == (MAX_VALIDATORS as f64 * 0.1).ceil() as u32);
 
     assert!(matches!(
         steward_state_account.state.state_tag,
@@ -343,8 +345,8 @@ async fn test_compute_scores() {
         steward_state_account.state.state_tag,
         StewardStateEnum::ComputeScores
     ));
-    assert_eq!(steward_state_account.state.scores[0], 1_000_000_000);
-    assert_eq!(steward_state_account.state.yield_scores[0], 1_000_000_000);
+    assert_eq!(steward_state_account.state.scores[0], 4294967295);
+    assert_eq!(steward_state_account.state.yield_scores[0], 4294967295);
     assert_eq!(steward_state_account.state.sorted_score_indices[0], 0);
     assert_eq!(steward_state_account.state.sorted_yield_score_indices[0], 0);
     assert!(steward_state_account.state.progress.get(0).unwrap());

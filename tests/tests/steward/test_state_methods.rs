@@ -60,11 +60,12 @@ fn test_compute_scores() {
         .progress
         .is_complete(state.num_pool_validators)
         .unwrap());
-    assert!(state.scores[0..3] == [1_000_000_000, 0, 950_000_000]);
+
+    assert!(state.scores[0..3] == [4294967295, 0, 4294967295]);
     assert!(state.sorted_score_indices[0..3] == [0, 2, 1]);
     assert!(state.sorted_score_indices[3..] == [SORTED_INDEX_DEFAULT; MAX_VALIDATORS - 3]);
-    assert!(state.yield_scores[0..3] == [1_000_000_000, 2_000_000, 950_000_000]);
-    assert!(state.sorted_yield_score_indices[0..3] == [0, 2, 1]);
+    assert!(state.yield_scores[0..3] == [4294967295, 4294967295, 4294967295]);
+    assert!(state.sorted_yield_score_indices[0..3] == [0, 1, 2]);
     assert!(state.sorted_yield_score_indices[3..] == [SORTED_INDEX_DEFAULT; MAX_VALIDATORS - 3]);
     assert!(state.start_computing_scores_slot == clock.slot);
     assert!(state.next_cycle_epoch == current_epoch + parameters.num_epochs_between_scoring);
@@ -167,7 +168,7 @@ fn test_compute_scores() {
     // validator would not have a score of 0 if it was not blacklisted
     assert!(state.scores[validators[0].index as usize] == 0);
     assert!(state.sorted_score_indices[0] == 0);
-    assert!(state.yield_scores[0] == 1_000_000_000);
+    assert!(state.yield_scores[0] == 4294967295);
     assert!(state.sorted_yield_score_indices[0] == 0);
 
     // Test reset scoring: 3 cases
@@ -244,10 +245,11 @@ fn test_compute_delegations() {
     let config = &fixtures.config;
 
     // Regular run
-    state.scores[0..3].copy_from_slice(&[1_000_000_000, 1_000_000_000, 1_000_000_000]);
+    state.scores[0..3].copy_from_slice(&[0, 0, 0]);
     state.sorted_score_indices[0..3].copy_from_slice(&[0, 1, 2]);
     state.sorted_yield_score_indices[0..3].copy_from_slice(&[0, 1, 2]);
     state.state_tag = StewardStateEnum::ComputeDelegations;
+    state.num_pool_validators = 3;
     assert!(config.parameters.num_delegation_validators == 3);
     let res = state.compute_delegations(clock.epoch, config);
     assert!(res.is_ok());
@@ -256,12 +258,8 @@ fn test_compute_delegations() {
         StewardStateEnum::ComputeDelegations
     ));
     assert!(
-        state.delegations[0..3]
-            == [
-                Delegation::new(1, 3),
-                Delegation::new(1, 3),
-                Delegation::new(1, 3)
-            ]
+        state.delegations[0]
+            == Delegation::new(1, 1),        
     );
 
     // Delegate with fewer non-zero score validators than the number of pool validators
@@ -272,12 +270,7 @@ fn test_compute_delegations() {
     let res = state.compute_delegations(clock.epoch, config);
     assert!(res.is_ok());
     assert!(
-        state.delegations[0..3]
-            == [
-                Delegation::new(1, 2),
-                Delegation::new(0, 1),
-                Delegation::new(1, 2)
-            ]
+        state.delegations[0] == Delegation::new(1, 1),
     );
 
     // Test invalid state

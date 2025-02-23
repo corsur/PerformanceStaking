@@ -140,10 +140,10 @@ mod test_calculate_epoch_credits {
         let epoch_start = 0;
         let threshold = 0.9;
 
-        let (ratio, delinquency_score, delinquency_ratio, delinquency_epoch) =
+        let (avg_epoch_yield, delinquency_score, delinquency_ratio, delinquency_epoch) =
             calculate_epoch_credits(&epoch_credits, &total_blocks, epoch_start, threshold).unwrap();
 
-        assert_eq!(ratio, 0.8);
+        assert_eq!(avg_epoch_yield, 12800.0);  
         assert_eq!(delinquency_score, 0.0);
         assert_eq!(delinquency_ratio, 0.8);
         assert_eq!(delinquency_epoch, 0);
@@ -167,9 +167,9 @@ mod test_calculate_epoch_credits {
         // Missing data
         let epoch_credits = [None, Some(800 * TVC_MULTIPLIER), Some(900 * TVC_MULTIPLIER)];
         let total_blocks = [Some(1000), None, Some(1000)];
-        let (ratio, delinquency_score, delinquency_ratio, delinquency_epoch) =
+        let (avg_yield, delinquency_score, delinquency_ratio, delinquency_epoch) =
             calculate_epoch_credits(&epoch_credits, &total_blocks, 0, 0.9).unwrap();
-        assert_eq!(ratio, 1700. / 3000.);
+        assert_eq!(avg_yield as u32, 9066);
         assert_eq!(delinquency_score, 0.0);
         assert_eq!(delinquency_ratio, 0.0);
         assert_eq!(delinquency_epoch, 0);
@@ -181,9 +181,9 @@ mod test_calculate_epoch_credits {
             Some(1000 * TVC_MULTIPLIER),
         ];
         let total_blocks = [Some(1000), Some(1000), Some(1000)];
-        let (ratio, delinquency_score, delinquency_ratio, delinquency_epoch) =
+        let (avg_yield, delinquency_score, delinquency_ratio, delinquency_epoch) =
             calculate_epoch_credits(&epoch_credits, &total_blocks, 0, 0.7).unwrap();
-        assert_eq!(ratio, 0.9);
+        assert_eq!(avg_yield, 14400.0);
         assert_eq!(delinquency_score, 1.0);
         assert_eq!(delinquency_ratio, 1.0);
         assert_eq!(delinquency_epoch, EPOCH_DEFAULT);
@@ -217,19 +217,19 @@ mod test_calculate_commission {
         let current_epoch = 2;
         let threshold = 8;
 
-        let (score, max_commission, max_epoch) =
+        let (score, avg_commission, max_epoch) =
             calculate_commission(&commission_window, current_epoch, threshold).unwrap();
 
         assert_eq!(score, 1.0);
-        assert_eq!(max_commission, 7);
+        assert_eq!(avg_commission, 6);
         assert_eq!(max_epoch, 1);
 
         // Commission above threshold
         let commission_window = [Some(5), Some(10), Some(6)];
-        let (score, max_commission, max_epoch) =
+        let (score, avg_commission, max_epoch) =
             calculate_commission(&commission_window, 2, 8).unwrap();
         assert_eq!(score, 0.0);
-        assert_eq!(max_commission, 10);
+        assert_eq!(avg_commission, 7);
         assert_eq!(max_epoch, 1);
     }
 

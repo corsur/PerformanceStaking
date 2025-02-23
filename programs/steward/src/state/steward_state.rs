@@ -735,15 +735,21 @@ impl StewardState {
                 return Err(StewardError::InvalidState.into());
             }
 
-            let num_delegation_validators = ((self.sorted_score_indices.len() as f64) * 0.1).ceil() as usize;
-            let validators_to_delegate = select_validators_to_delegate(
-                &self.yield_scores[..self.num_pool_validators as usize],
-                &self.sorted_yield_score_indices[..self.num_pool_validators as usize],
-                num_delegation_validators,
+
+            let num_delegation_validators = ((self.num_pool_validators as f64) * 0.1)
+                    // Round up to the nearest whole number
+                    .ceil() as usize;
+
+            let sorted_yield_score_indices = &self.sorted_yield_score_indices[..self.num_pool_validators as usize];
+
+            let mut validators_to_delegate = Vec::with_capacity(num_delegation_validators);
+
+            validators_to_delegate.extend(
+                sorted_yield_score_indices[..num_delegation_validators]
+                    .iter()
+                    .copied(),
             );
-
-            let num_delegation_validators = validators_to_delegate.len();
-
+            
             // Assign equal share of pool to each validator
             for index in validators_to_delegate {
                 self.delegations[index as usize] = Delegation {

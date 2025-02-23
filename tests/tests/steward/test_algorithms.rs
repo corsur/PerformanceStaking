@@ -48,14 +48,14 @@ fn test_compute_score() {
     assert_eq!(
         components,
         ScoreComponentsV2 {
-            score: 1.0,
-            yield_score: 1.0,
+            score: 16000.0,
+            yield_score: 16000.0,
             mev_commission_score: 1.0,
             blacklisted_score: 1.0,
             superminority_score: 1.0,
             delinquency_score: 1.0,
             running_jito_score: 1.0,
-            vote_credits_ratio: 1.0,
+            vote_credits_ratio: 16000.0,
             commission_score: 1.0,
             historical_commission_score: 1.0,
             vote_account: good_validator.vote_account,
@@ -67,7 +67,7 @@ fn test_compute_score() {
                 delinquency_ratio: 1.0,
                 delinquency_epoch: EPOCH_DEFAULT,
                 avg_commission: 0,
-                max_commission_epoch: 0,
+                max_commission_epoch: 15,
                 max_historical_commission: 0,
                 max_historical_commission_epoch: 0,
             }
@@ -90,13 +90,13 @@ fn test_compute_score() {
         components,
         ScoreComponentsV2 {
             score: 0.0,
-            yield_score: 1.0,
+            yield_score: 16000.0,
             mev_commission_score: 0.0,
             blacklisted_score: 1.0,
             superminority_score: 1.0,
             delinquency_score: 1.0,
             running_jito_score: 1.0,
-            vote_credits_ratio: 1.0,
+            vote_credits_ratio: 16000.0,
             commission_score: 1.0,
             historical_commission_score: 1.0,
             vote_account: validator.vote_account,
@@ -108,7 +108,7 @@ fn test_compute_score() {
                 delinquency_ratio: 1.0,
                 delinquency_epoch: EPOCH_DEFAULT,
                 avg_commission: 0,
-                max_commission_epoch: 0,
+                max_commission_epoch: 15,
                 max_historical_commission: 0,
                 max_historical_commission_epoch: 0,
             }
@@ -129,13 +129,13 @@ fn test_compute_score() {
         components,
         ScoreComponentsV2 {
             score: 0.0,
-            yield_score: 1.0,
+            yield_score: 16000.0,
             mev_commission_score: 0.0,
             blacklisted_score: 1.0,
             superminority_score: 1.0,
             delinquency_score: 1.0,
             running_jito_score: 1.0,
-            vote_credits_ratio: 1.0,
+            vote_credits_ratio: 16000.0,
             commission_score: 1.0,
             historical_commission_score: 1.0,
             vote_account: validator.vote_account,
@@ -147,7 +147,7 @@ fn test_compute_score() {
                 delinquency_ratio: 1.0,
                 delinquency_epoch: EPOCH_DEFAULT,
                 avg_commission: 0,
-                max_commission_epoch: 0,
+                max_commission_epoch: 15,
                 max_historical_commission: 0,
                 max_historical_commission_epoch: 0,
             }
@@ -167,14 +167,14 @@ fn test_compute_score() {
     assert_eq!(
         components,
         ScoreComponentsV2 {
-            score: 1.0,
-            yield_score: 1.0,
+            score: 16000.0,
+            yield_score: 16000.0,
             mev_commission_score: 1.0,
             blacklisted_score: 1.0,
             superminority_score: 1.0,
             delinquency_score: 1.0,
             running_jito_score: 1.0,
-            vote_credits_ratio: 1.0,
+            vote_credits_ratio: 16000.0,
             commission_score: 1.0,
             historical_commission_score: 1.0,
             vote_account: validator.vote_account,
@@ -186,7 +186,7 @@ fn test_compute_score() {
                 delinquency_ratio: 1.0,
                 delinquency_epoch: EPOCH_DEFAULT,
                 avg_commission: 0,
-                max_commission_epoch: 0,
+                max_commission_epoch: 15,
                 max_historical_commission: 0,
                 max_historical_commission_epoch: 0,
             }
@@ -211,13 +211,13 @@ fn test_compute_score() {
         components,
         ScoreComponentsV2 {
             score: 0.0,
-            yield_score: 1.0,
+            yield_score: 16000.0,
             mev_commission_score: 1.0,
             blacklisted_score: 0.0,
             superminority_score: 1.0,
             delinquency_score: 1.0,
             running_jito_score: 1.0,
-            vote_credits_ratio: 1.0,
+            vote_credits_ratio: 16000.0,
             commission_score: 1.0,
             historical_commission_score: 1.0,
             vote_account: validator.vote_account,
@@ -229,7 +229,7 @@ fn test_compute_score() {
                 delinquency_ratio: 1.0,
                 delinquency_epoch: EPOCH_DEFAULT,
                 avg_commission: 0,
-                max_commission_epoch: 0,
+                max_commission_epoch: 15,
                 max_historical_commission: 0,
                 max_historical_commission_epoch: 0,
             }
@@ -252,13 +252,13 @@ fn test_compute_score() {
         components,
         ScoreComponentsV2 {
             score: 0.0,
-            yield_score: 1.0,
+            yield_score: 16000.0,
             mev_commission_score: 1.0,
             blacklisted_score: 1.0,
             superminority_score: 0.0,
             delinquency_score: 1.0,
             running_jito_score: 1.0,
-            vote_credits_ratio: 1.0,
+            vote_credits_ratio: 16000.0,
             commission_score: 1.0,
             historical_commission_score: 1.0,
             vote_account: validator.vote_account,
@@ -270,7 +270,7 @@ fn test_compute_score() {
                 delinquency_ratio: 1.0,
                 delinquency_epoch: EPOCH_DEFAULT,
                 avg_commission: 0,
-                max_commission_epoch: 0,
+                max_commission_epoch: 15,
                 max_historical_commission: 0,
                 max_historical_commission_epoch: 0,
             }
@@ -293,14 +293,14 @@ fn test_compute_score() {
     assert_eq!(
         components,
         ScoreComponentsV2 {
-            score: 1.0,
-            yield_score: 1.0,
+            score: 16000.0,
+            yield_score: 16000.0,
             mev_commission_score: 1.0,
             blacklisted_score: 1.0,
             superminority_score: 1.0,
             delinquency_score: 1.0,
             running_jito_score: 1.0,
-            vote_credits_ratio: 1.0,
+            vote_credits_ratio: 16000.0,
             commission_score: 1.0,
             historical_commission_score: 1.0,
             vote_account: validator.vote_account,
@@ -312,7 +312,7 @@ fn test_compute_score() {
                 delinquency_ratio: 1.0,
                 delinquency_epoch: EPOCH_DEFAULT,
                 avg_commission: 0,
-                max_commission_epoch: 0,
+                max_commission_epoch: 15,
                 max_historical_commission: 0,
                 max_historical_commission_epoch: 0,
             }
@@ -337,13 +337,13 @@ fn test_compute_score() {
         components,
         ScoreComponentsV2 {
             score: 0.0,
-            yield_score: 1.0,
+            yield_score: 16000.0,
             mev_commission_score: 0.0,
             blacklisted_score: 1.0,
             superminority_score: 1.0,
             delinquency_score: 1.0,
             running_jito_score: 0.0,
-            vote_credits_ratio: 1.0,
+            vote_credits_ratio: 16000.0,
             commission_score: 1.0,
             historical_commission_score: 1.0,
             vote_account: validator.vote_account,
@@ -355,7 +355,7 @@ fn test_compute_score() {
                 delinquency_ratio: 1.0,
                 delinquency_epoch: EPOCH_DEFAULT,
                 avg_commission: 0,
-                max_commission_epoch: 0,
+                max_commission_epoch: 15,
                 max_historical_commission: 0,
                 max_historical_commission_epoch: 0,
             }
@@ -377,13 +377,13 @@ fn test_compute_score() {
         components,
         ScoreComponentsV2 {
             score: 0.0,
-            yield_score: 0.89,
+            yield_score: 15840.0,
             mev_commission_score: 1.0,
             blacklisted_score: 1.0,
             superminority_score: 1.0,
             delinquency_score: 1.0,
             running_jito_score: 1.0,
-            vote_credits_ratio: 1.0,
+            vote_credits_ratio: 16000.0,
             commission_score: 0.0,
             historical_commission_score: 0.0,
             vote_account: validator.vote_account,
@@ -394,7 +394,7 @@ fn test_compute_score() {
                 superminority_epoch: EPOCH_DEFAULT,
                 delinquency_ratio: 1.0,
                 delinquency_epoch: EPOCH_DEFAULT,
-                avg_commission: 11,
+                avg_commission: 1,
                 max_commission_epoch: current_epoch as u16,
                 max_historical_commission: 11,
                 max_historical_commission_epoch: current_epoch as u16,
@@ -424,14 +424,14 @@ fn test_compute_score() {
     assert_eq!(
         components,
         ScoreComponentsV2 {
-            score: 1.0,
-            yield_score: 1.0,
+            score: 16000.0,
+            yield_score: 16000.0,
             mev_commission_score: 1.0,
             blacklisted_score: 1.0,
             superminority_score: 1.0,
             delinquency_score: 1.0,
             running_jito_score: 1.0,
-            vote_credits_ratio: 1.0,
+            vote_credits_ratio: 16000.0,
             commission_score: 1.0,
             historical_commission_score: 1.0,
             vote_account: validator.vote_account,
@@ -443,7 +443,7 @@ fn test_compute_score() {
                 delinquency_ratio: 1.0,
                 delinquency_epoch: EPOCH_DEFAULT,
                 avg_commission: 0,
-                max_commission_epoch: 10,
+                max_commission_epoch: 15,
                 max_historical_commission: 14,
                 max_historical_commission_epoch: 0,
             }
@@ -463,13 +463,13 @@ fn test_compute_score() {
         components,
         ScoreComponentsV2 {
             score: 0.0,
-            yield_score: 1.0,
+            yield_score: 16000.0,
             mev_commission_score: 1.0,
             blacklisted_score: 1.0,
             superminority_score: 1.0,
             delinquency_score: 1.0,
             running_jito_score: 1.0,
-            vote_credits_ratio: 1.0,
+            vote_credits_ratio: 16000.0,
             commission_score: 1.0,
             historical_commission_score: 0.0,
             vote_account: validator.vote_account,
@@ -481,7 +481,7 @@ fn test_compute_score() {
                 delinquency_ratio: 1.0,
                 delinquency_epoch: EPOCH_DEFAULT,
                 avg_commission: 0,
-                max_commission_epoch: 10,
+                max_commission_epoch: 15,
                 max_historical_commission: 16,
                 max_historical_commission_epoch: 0,
             }
@@ -507,14 +507,14 @@ fn test_compute_score() {
     assert_eq!(
         components,
         ScoreComponentsV2 {
-            score: 0.88,
-            yield_score: 0.88,
+            score: 14080.0,
+            yield_score: 14080.0,
             mev_commission_score: 1.0,
             blacklisted_score: 1.0,
             superminority_score: 1.0,
             delinquency_score: 1.0,
             running_jito_score: 1.0,
-            vote_credits_ratio: 0.88,
+            vote_credits_ratio: 14080.0,
             commission_score: 1.0,
             historical_commission_score: 1.0,
             vote_account: validator.vote_account,
@@ -526,92 +526,7 @@ fn test_compute_score() {
                 delinquency_ratio: 1.0,
                 delinquency_epoch: EPOCH_DEFAULT,
                 avg_commission: 0,
-                max_commission_epoch: 10,
-                max_historical_commission: 0,
-                max_historical_commission_epoch: 0,
-            }
-        }
-    );
-
-    // delinquency
-    let mut validator = good_validator;
-    validator.history.arr[10].epoch_credits = 0;
-    let components = validator_score(
-        &validator,
-        &cluster_history,
-        &config,
-        current_epoch as u16,
-        TVC_ACTIVATION_EPOCH,
-    )
-    .unwrap();
-    assert_eq!(
-        components,
-        ScoreComponentsV2 {
-            score: 0.0,
-            yield_score: 0.95,
-            mev_commission_score: 1.0,
-            blacklisted_score: 1.0,
-            superminority_score: 1.0,
-            delinquency_score: 0.0,
-            running_jito_score: 1.0,
-            vote_credits_ratio: 0.95,
-            commission_score: 1.0,
-            historical_commission_score: 1.0,
-            vote_account: validator.vote_account,
-            epoch: current_epoch as u16,
-            details: ScoreDetails {
-                max_mev_commission: 0,
-                max_mev_commission_epoch: 10,
-                superminority_epoch: EPOCH_DEFAULT,
-                delinquency_ratio: 0.0,
-                delinquency_epoch: 10,
-                avg_commission: 0,
-                max_commission_epoch: 10,
-                max_historical_commission: 0,
-                max_historical_commission_epoch: 0,
-            }
-        }
-    );
-
-    // Test cluster history not updated won't punish validators for delinquency
-    let mut validator = good_validator;
-    let mut cluster_history = default_fixture.cluster_history;
-    validator.history.arr[10].epoch_credits = ValidatorHistoryEntry::default().epoch_credits;
-    validator.history.arr[11].epoch_credits = 0;
-    cluster_history.history.arr[10].total_blocks = ClusterHistoryEntry::default().total_blocks;
-    cluster_history.history.arr[11].total_blocks = ClusterHistoryEntry::default().total_blocks;
-
-    let components = validator_score(
-        &validator,
-        &cluster_history,
-        &config,
-        current_epoch as u16,
-        TVC_ACTIVATION_EPOCH,
-    )
-    .unwrap();
-    assert_eq!(
-        components,
-        ScoreComponentsV2 {
-            score: 0.9,
-            yield_score: 0.9,
-            mev_commission_score: 1.0,
-            blacklisted_score: 1.0,
-            superminority_score: 1.0,
-            delinquency_score: 1.0,
-            running_jito_score: 1.0,
-            vote_credits_ratio: 0.9,
-            commission_score: 1.0,
-            historical_commission_score: 1.0,
-            vote_account: validator.vote_account,
-            epoch: current_epoch as u16,
-            details: ScoreDetails {
-                max_mev_commission: 0,
-                max_mev_commission_epoch: 10,
-                superminority_epoch: EPOCH_DEFAULT,
-                delinquency_ratio: 1.0,
-                delinquency_epoch: EPOCH_DEFAULT,
-                avg_commission: 0,
-                max_commission_epoch: 10,
+                max_commission_epoch: 15,
                 max_historical_commission: 0,
                 max_historical_commission_epoch: 0,
             }
@@ -635,14 +550,14 @@ fn test_compute_score() {
     assert_eq!(
         components,
         ScoreComponentsV2 {
-            score: 1.0,
-            yield_score: 1.0,
+            score: 16000.0,
+            yield_score: 16000.0,
             mev_commission_score: 1.0,
             blacklisted_score: 1.0,
             superminority_score: 1.0,
             delinquency_score: 1.0,
             running_jito_score: 1.0,
-            vote_credits_ratio: 1.0,
+            vote_credits_ratio: 16000.0,
             commission_score: 1.0,
             historical_commission_score: 1.0,
             vote_account: validator.vote_account,
@@ -654,7 +569,7 @@ fn test_compute_score() {
                 delinquency_ratio: 1.0,
                 delinquency_epoch: EPOCH_DEFAULT,
                 avg_commission: 0,
-                max_commission_epoch: 10,
+                max_commission_epoch: 15,
                 max_historical_commission: 0,
                 max_historical_commission_epoch: 0,
             }

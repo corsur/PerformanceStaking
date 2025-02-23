@@ -113,6 +113,8 @@ pub fn test_compute_delegations_to_idle() {
     let parameters = &fixtures.config.parameters;
     let state = &mut fixtures.state;
     state.sorted_score_indices[0..3].copy_from_slice(&[0, 1, 2]);
+    state.sorted_yield_score_indices[0..3].copy_from_slice(&[0, 1, 2]);
+    state.num_pool_validators = 3;
 
     state.state_tag = StewardStateEnum::ComputeDelegations;
     state.compute_delegations(current_epoch, config).unwrap();
